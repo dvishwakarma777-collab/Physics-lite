@@ -1,0 +1,1056 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f6f7f2" />
+    <meta name="description" content="A focused physics study space for JEE and NEET aspirants." />
+    <title>Fieldnotes — Physics prep, made clearer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap" rel="stylesheet" />
+    <style>
+      :root {
+        --bg: #f6f7f2;
+        --paper: #fbfaf3;
+        --ink: #151718;
+        --muted: #666c6a;
+        --line: rgba(21, 23, 24, 0.1);
+        --sage: #bcc9b2;
+        --sage-strong: #5d6d55;
+        --gold: #d7b86a;
+        --panel: rgba(255,255,255,0.45);
+        --shadow: 0 25px 60px rgba(31, 35, 29, 0.08);
+      }
+      * { box-sizing: border-box; }
+      html { scroll-behavior: smooth; }
+      body {
+        margin: 0;
+        font-family: "DM Sans", sans-serif;
+        background: var(--bg);
+        color: var(--ink);
+      }
+      a { color: inherit; text-decoration: none; }
+      button, input, textarea, select { font: inherit; }
+      .app-shell {
+        min-height: 100vh;
+        display: flex;
+        gap: 24px;
+        padding: 24px;
+      }
+      .sidebar {
+        width: 292px;
+        background: rgba(255,255,255,0.38);
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        padding: 22px 18px;
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        box-shadow: var(--shadow);
+      }
+      .brand {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-family: "Newsreader", serif;
+        font-size: 2rem;
+        letter-spacing: -0.05em;
+      }
+      .brand-mark {
+        display: inline-grid;
+        place-items: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 12px;
+        background: var(--ink);
+        color: var(--paper);
+        font-size: 1.2rem;
+        font-family: "DM Mono", monospace;
+      }
+      .brand-period { color: var(--gold); }
+      .nav-caption, .section-kicker, .note-label, .exam-label, .welcome-side-label, .stat-label, .question-tag, .chapter-number, .formula-subject, .breadcrumbs, .resource-kicker {
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        font-family: "DM Mono", monospace;
+        color: var(--muted);
+        font-size: 0.68rem;
+      }
+      .primary-nav { display: flex; flex-direction: column; gap: 10px; }
+      .nav-link {
+        display: grid;
+        grid-template-columns: 54px 1fr;
+        align-items: center;
+        border-radius: 16px;
+        padding: 10px 12px;
+        font-weight: 600;
+        border: 1px solid transparent;
+        transition: 0.2s ease;
+      }
+      .nav-link:hover, .nav-link.is-active {
+        border-color: rgba(21,23,24,0.18);
+        background: rgba(255,255,255,0.46);
+      }
+      .nav-index { font-family: "DM Mono", monospace; font-size: 0.7rem; color: var(--muted); }
+      .sidebar-note {
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: rgba(255,255,255,0.25);
+        padding: 16px 14px;
+        position: relative;
+      }
+      .sidebar-note p {
+        margin: 14px 0 0;
+        font-size: 0.96rem;
+        line-height: 1.6;
+      }
+      .note-mark {
+        position: absolute;
+        bottom: 12px;
+        right: 18px;
+        font-size: 2rem;
+        color: var(--gold);
+      }
+      .profile-row {
+        margin-top: auto;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding-top: 14px;
+        border-top: 1px solid var(--line);
+      }
+      .avatar {
+        width: 42px;
+        height: 42px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, var(--ink), #4a4d43);
+        color: var(--paper);
+        display: grid;
+        place-items: center;
+        font-weight: 700;
+      }
+      .profile-row strong, .profile-row span { display: block; }
+      .profile-row span { font-size: 0.76rem; color: var(--muted); }
+      .profile-menu {
+        margin-left: auto;
+        width: 34px;
+        height: 34px;
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        background: rgba(255,255,255,0.7);
+        cursor: pointer;
+      }
+      .main-content { flex: 1; max-width: 1180px; }
+      .topbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        padding: 18px 12px 16px;
+      }
+      .breadcrumbs {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.72rem;
+      }
+      .crumb-slash { opacity: 0.5; }
+      .topbar-actions {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+      .exam-switch {
+        display: inline-flex;
+        background: rgba(255,255,255,0.5);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 5px;
+      }
+      .exam-option {
+        border: none;
+        background: transparent;
+        color: var(--muted);
+        border-radius: 999px;
+        padding: 9px 14px;
+        font-weight: 600;
+        cursor: pointer;
+      }
+      .exam-option.is-selected {
+        background: var(--ink);
+        color: var(--paper);
+      }
+      .today-date {
+        font-family: "DM Mono", monospace;
+        color: var(--muted);
+        font-size: 0.8rem;
+      }
+      .welcome-section, .daily-row, .study-section, .lower-grid, .resource-panel, .page-footer { margin-top: 18px; }
+      .welcome-section {
+        display: grid;
+        grid-template-columns: 1.8fr 0.9fr;
+        gap: 16px;
+        background: rgba(255,255,255,0.3);
+        border: 1px solid var(--line);
+        border-radius: 30px;
+        padding: 30px 28px;
+      }
+      .eyebrow {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-family: "DM Mono", monospace;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--muted);
+        font-size: 0.7rem;
+        margin: 0 0 18px;
+      }
+      .eyebrow-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--sage-strong);
+        box-shadow: 0 0 0 6px rgba(93,109,85,0.11);
+      }
+      h1, h2, h3 { margin: 0; letter-spacing: -0.06em; }
+      h1 {
+        font-family: "Newsreader", serif;
+        font-size: clamp(3rem, 6vw, 5.2rem);
+        line-height: 0.92;
+        font-weight: 600;
+      }
+      h1 em, h2 em, h3 em { color: var(--sage-strong); font-style: normal; }
+      .welcome-description {
+        max-width: 560px;
+        font-size: 1.08rem;
+        color: var(--muted);
+        line-height: 1.7;
+        margin-top: 18px;
+      }
+      .welcome-side {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        border-left: 1px solid var(--line);
+        padding-left: 28px;
+      }
+      .streak-count { display: flex; align-items: end; gap: 14px; margin-top: 12px; }
+      .streak-count span:first-child {
+        font-family: "Newsreader", serif;
+        font-size: clamp(3rem, 4vw, 4rem);
+        line-height: 1;
+      }
+      .streak-unit {
+        font-family: "DM Mono", monospace;
+        font-size: 0.68rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+        line-height: 1.5;
+      }
+      .streak-dots { display: flex; gap: 8px; margin-top: 18px; }
+      .streak-day {
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
+        border: 1px solid var(--line);
+        display: grid;
+        place-items: center;
+        background: rgba(255,255,255,0.4);
+        font-size: 0.7rem;
+        color: var(--muted);
+      }
+      .streak-day.done {
+        background: var(--sage-strong);
+        color: var(--paper);
+        border-color: var(--sage-strong);
+      }
+      .streak-day.today {
+        border-color: var(--gold);
+        box-shadow: inset 0 0 0 1px rgba(215,184,106,0.5);
+      }
+      .streak-caption { margin-top: 18px; color: var(--muted); }
+      .daily-row {
+        display: grid;
+        grid-template-columns: 1.2fr 1.9fr auto;
+        gap: 16px;
+        align-items: center;
+        background: rgba(255,255,255,0.25);
+        border: 1px solid var(--line);
+        border-radius: 30px;
+        padding: 20px 22px;
+      }
+      .daily-intro p {
+        margin: 14px 0 0;
+        font-size: 1rem;
+        color: var(--muted);
+      }
+      .daily-stat {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        min-width: 140px;
+      }
+      .daily-stat strong {
+        display: flex;
+        align-items: baseline;
+        gap: 4px;
+        font-size: 1.8rem;
+        letter-spacing: -0.05em;
+      }
+      .daily-stat strong small {
+        font-size: 0.86rem;
+        color: var(--muted);
+        letter-spacing: 0;
+      }
+      .progress-track {
+        width: 100%;
+        height: 8px;
+        border-radius: 999px;
+        background: rgba(21,23,24,0.07);
+        overflow: hidden;
+      }
+      .progress-track span {
+        display: block;
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--sage-strong), #8ea07c);
+      }
+      .goal-button, .chapter-button, .formula-link, .admin-toggle, .save-resource, .admin-action, .dialog-close { border: none; cursor: pointer; }
+      .goal-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        background: var(--ink);
+        color: var(--paper);
+        padding: 16px 18px;
+        border-radius: 18px;
+        font-weight: 600;
+      }
+      .study-section { display: flex; flex-direction: column; gap: 18px; }
+      .section-heading {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 16px;
+      }
+      .section-heading h2 {
+        font-family: "Newsreader", serif;
+        font-size: clamp(2rem, 3vw, 3rem);
+        margin-top: 12px;
+      }
+      .text-link { color: var(--sage-strong); font-weight: 600; }
+      .chapter-feature {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        align-items: stretch;
+        background: rgba(255,255,255,0.28);
+        border: 1px solid var(--line);
+        border-radius: 30px;
+        overflow: hidden;
+      }
+      .chapter-copy { padding: 30px 28px; }
+      .chapter-meta {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        font-family: "DM Mono", monospace;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: var(--muted);
+        font-size: 0.68rem;
+      }
+      .meta-divider {
+        display: inline-block;
+        width: 34px;
+        height: 1px;
+        background: rgba(21,23,24,0.2);
+      }
+      .chapter-copy h3 {
+        margin-top: 16px;
+        font-family: "Newsreader", serif;
+        font-size: clamp(2.2rem, 4vw, 3.4rem);
+        line-height: 0.98;
+      }
+      .chapter-copy p {
+        margin: 18px 0 20px;
+        max-width: 38ch;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+      .chapter-progress-label {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 10px;
+        font-family: "DM Mono", monospace;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+        font-size: 0.66rem;
+      }
+      .chapter-progress {
+        width: 100%;
+        height: 10px;
+        background: rgba(21,23,24,0.07);
+        border-radius: 999px;
+        overflow: hidden;
+      }
+      .chapter-progress span {
+        display: block;
+        width: 38%;
+        height: 100%;
+        background: linear-gradient(90deg, var(--gold), #c89a4d);
+      }
+      .chapter-button {
+        margin-top: 18px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(21,23,24,0.96);
+        color: var(--paper);
+        padding: 13px 18px;
+        border-radius: 18px;
+        font-weight: 600;
+      }
+      .chapter-image {
+        position: relative;
+        min-height: 280px;
+        background: linear-gradient(180deg, rgba(13,18,19,0.12), rgba(13,18,19,0.52)), radial-gradient(circle at top, rgba(221,225,214,0.8), rgba(76,91,78,0.3) 28%, rgba(16,22,18,0.9) 70%), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 720"><circle cx="400" cy="280" r="180" fill="rgba(236,240,234,0.28)"/><circle cx="240" cy="500" r="220" fill="rgba(136,160,130,0.18)"/><path d="M0 520C180 420 260 530 420 470C560 420 630 340 720 390V720H0Z" fill="rgba(245,247,238,0.08)"/></svg>') center/cover no-repeat;
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        padding: 20px 18px;
+      }
+      .image-caption {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        max-width: 180px;
+        font-family: "DM Mono", monospace;
+        text-transform: uppercase;
+        font-size: 0.64rem;
+        letter-spacing: 0.12em;
+        color: rgba(255,255,255,0.9);
+      }
+      .image-coordinate {
+        align-self: flex-start;
+        font-family: "DM Mono", monospace;
+        color: rgba(255,255,255,0.75);
+        font-size: 0.78rem;
+      }
+      .lower-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+      .practice-panel, .formula-panel, .resource-panel {
+        background: rgba(255,255,255,0.28);
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        padding: 24px 22px;
+      }
+      .compact-heading { align-items: center; }
+      .question-text { font-size: 1.2rem; line-height: 1.5; margin: 18px 0 20px; }
+      .answer-list { display: grid; gap: 10px; }
+      .answer-option {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        width: 100%;
+        padding: 14px 16px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: rgba(255,255,255,0.45);
+        text-align: left;
+        cursor: pointer;
+      }
+      .answer-option span {
+        display: inline-grid;
+        place-items: center;
+        width: 26px;
+        height: 26px;
+        border-radius: 8px;
+        background: rgba(21,23,24,0.05);
+        font-family: "DM Mono", monospace;
+      }
+      .answer-option.correct { border-color: rgba(52,126,76,0.6); background: rgba(95,153,102,0.1); }
+      .answer-option.wrong { border-color: rgba(145,74,72,0.5); background: rgba(176,102,96,0.08); }
+      .answer-feedback { min-height: 24px; margin-top: 16px; font-weight: 600; }
+      .formula-panel { display: flex; flex-direction: column; gap: 18px; }
+      .formula-feature {
+        background: rgba(255,255,255,0.5);
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        padding: 20px 18px;
+      }
+      .formula-equation {
+        margin: 14px 0 12px;
+        font-family: "DM Mono", monospace;
+        font-size: clamp(1.4rem, 2vw, 2rem);
+        letter-spacing: -0.04em;
+      }
+      .formula-caption { margin: 0; color: var(--muted); line-height: 1.6; }
+      .formula-link {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        gap: 8px;
+        background: var(--ink);
+        color: var(--paper);
+        border-radius: 16px;
+        padding: 14px 18px;
+        font-weight: 600;
+      }
+      .resource-panel { margin-top: 18px; }
+      .resource-list { display: grid; gap: 12px; margin-top: 18px; }
+      .resource-item {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 14px;
+        align-items: center;
+        padding: 16px 18px;
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        background: rgba(255,255,255,0.45);
+      }
+      .resource-item h3 { font-size: 1.08rem; margin: 0 0 6px; }
+      .resource-meta {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        font-family: "DM Mono", monospace;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-size: 0.64rem;
+      }
+      .resource-item p {
+        margin: 8px 0 0;
+        line-height: 1.5;
+        color: var(--muted);
+      }
+      .resource-item a { color: var(--sage-strong); font-weight: 600; }
+      .page-footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        font-family: "DM Mono", monospace;
+        color: var(--muted);
+        font-size: 0.7rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        padding: 16px 8px 40px;
+      }
+      .admin-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(21,23,24,0.06);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 10px 16px;
+        font-weight: 600;
+      }
+      .admin-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(13, 15, 16, 0.42);
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        z-index: 50;
+      }
+      .admin-overlay[hidden] { display: none; }
+      .admin-panel {
+        width: min(100%, 760px);
+        background: var(--paper);
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        box-shadow: var(--shadow);
+        padding: 22px;
+      }
+      .admin-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        margin-bottom: 16px;
+      }
+      .admin-header h2 {
+        font-family: "Newsreader", serif;
+        font-size: clamp(1.8rem, 3vw, 2.6rem);
+      }
+      .admin-auth { display: grid; gap: 16px; }
+      .field-row {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px;
+      }
+      .form-field { display: grid; gap: 8px; }
+      .form-field label {
+        font-size: 0.82rem;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        font-family: "DM Mono", monospace;
+      }
+      .form-field input, .form-field textarea, .form-field select {
+        width: 100%;
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        background: rgba(255,255,255,0.55);
+        padding: 12px 14px;
+      }
+      .form-field textarea { min-height: 96px; resize: vertical; }
+      .admin-actions {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .save-resource, .admin-action {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 14px;
+        padding: 12px 16px;
+        font-weight: 600;
+      }
+      .save-resource {
+        background: var(--ink);
+        color: var(--paper);
+      }
+      .admin-action {
+        background: rgba(21,23,24,0.06);
+        border: 1px solid var(--line);
+        color: var(--ink);
+      }
+      .admin-status {
+        min-height: 22px;
+        color: var(--sage-strong);
+        font-weight: 600;
+      }
+      @media (max-width: 980px) {
+        .app-shell { flex-direction: column; }
+        .sidebar { width: 100%; }
+        .daily-row { grid-template-columns: 1fr; }
+        .welcome-section { grid-template-columns: 1fr; }
+        .chapter-feature { grid-template-columns: 1fr; }
+        .lower-grid { grid-template-columns: 1fr; }
+      }
+      @media (max-width: 640px) {
+        .page-footer { flex-direction: column; }
+        .field-row { grid-template-columns: 1fr; }
+        .topbar { align-items: flex-start; flex-direction: column; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Main navigation">
+        <a class="brand" href="#home" aria-label="Fieldnotes home">
+          <span class="brand-mark" aria-hidden="true">f.</span>
+          <span>fieldnotes<span class="brand-period">.</span></span>
+        </a>
+        <p class="nav-caption">YOUR SPACE</p>
+        <nav class="primary-nav">
+          <a class="nav-link is-active" href="#home" data-view="home"><span class="nav-index">01</span>Overview</a>
+          <a class="nav-link" href="#syllabus" data-view="syllabus"><span class="nav-index">02</span>Syllabus</a>
+          <a class="nav-link" href="#practice" data-view="practice"><span class="nav-index">03</span>Practice</a>
+          <a class="nav-link" href="#formulas" data-view="formulas"><span class="nav-index">04</span>Formula book</a>
+        </nav>
+
+        <div class="sidebar-note">
+          <span class="note-label">A SMALL REMINDER</span>
+          <p>One good problem at a time. That's how the big ones get easier.</p>
+          <span class="note-mark" aria-hidden="true">∴</span>
+        </div>
+
+        <div class="profile-row">
+          <div class="avatar" aria-hidden="true">A</div>
+          <div><strong>My study space</strong><span>Keep showing up.</span></div>
+          <button class="profile-menu" aria-label="Profile options" title="Profile options">···</button>
+        </div>
+      </aside>
+
+      <main class="main-content" id="home">
+        <header class="topbar">
+          <div class="breadcrumbs"><span>MY DESK</span><span class="crumb-slash">/</span><span id="current-section">OVERVIEW</span></div>
+          <div class="topbar-actions">
+            <span class="exam-label">PREPARING FOR</span>
+            <div class="exam-switch" role="group" aria-label="Choose your exam">
+              <button class="exam-option is-selected" data-exam="JEE" aria-pressed="true">JEE</button>
+              <button class="exam-option" data-exam="NEET" aria-pressed="false">NEET</button>
+            </div>
+            <button class="admin-toggle" id="admin-toggle" type="button">Admin</button>
+            <span class="today-date" id="today-date"></span>
+          </div>
+        </header>
+
+        <section class="welcome-section" aria-labelledby="welcome-title">
+          <div class="welcome-copy">
+            <p class="eyebrow"><span class="eyebrow-dot"></span> YOUR PHYSICS STUDY SPACE</p>
+            <h1 id="welcome-title">Make sense<br />of <em>the universe.</em></h1>
+            <p class="welcome-description">A little more understanding today. A lot more confidence on exam day.</p>
+          </div>
+          <div class="welcome-side">
+            <p class="welcome-side-label">YOUR STREAK</p>
+            <div class="streak-count"><span id="streak-count">4</span><span class="streak-unit">days<br />in a row</span></div>
+            <div class="streak-dots" aria-label="4 day study streak">
+              <span class="streak-day done">M</span><span class="streak-day done">T</span><span class="streak-day done">W</span><span class="streak-day today">T</span><span class="streak-day">F</span>
+            </div>
+            <span class="streak-caption">Keep the rhythm going.</span>
+          </div>
+        </section>
+
+        <section class="daily-row" aria-label="Daily study progress">
+          <div class="daily-intro"><span class="section-kicker">TODAY, AT A GLANCE</span><p>A focused session beats a perfect plan.</p></div>
+          <div class="daily-stat"><span class="stat-label">STUDY TIME</span><strong><span id="study-minutes">35</span><small> / 90 min</small></strong><div class="progress-track"><span id="time-progress" style="width: 39%"></span></div></div>
+          <div class="daily-stat"><span class="stat-label">QUESTIONS</span><strong><span id="question-count">8</span><small> / 20 done</small></strong><div class="progress-track"><span id="question-progress" style="width: 40%"></span></div></div>
+          <button class="goal-button" id="start-session"><span>Continue your session</span><span aria-hidden="true">↗</span></button>
+        </section>
+
+        <section class="study-section" aria-label="Continue studying">
+          <div class="section-heading"><div><span class="section-kicker">PICK UP WHERE YOU LEFT OFF</span><h2>Your next <em>good question.</em></h2></div><a class="text-link" href="#syllabus">All chapters</a></div>
+          <article class="chapter-feature" id="syllabus">
+            <div class="chapter-copy">
+              <div class="chapter-meta"><span class="chapter-number">CHAPTER 04</span><span class="meta-divider"></span><span>MECHANICS</span></div>
+              <h3>Work, energy<br />&amp; power</h3>
+              <p>Build your intuition for how forces transfer energy, and when they don't.</p>
+              <div class="chapter-progress-label"><span>CHAPTER PROGRESS</span><strong>3 of 8 concepts</strong></div>
+              <div class="chapter-progress"><span></span></div>
+              <button class="chapter-button" id="continue-chapter">Continue learning <span aria-hidden="true">↗</span></button>
+            </div>
+            <div class="chapter-image" role="img" aria-label="A view of Earth from space">
+              <div class="image-caption"><span>ENERGY IS NEVER LOST.</span><span>IT JUST CHANGES FORM.</span></div>
+              <span class="image-coordinate">φ = 0.618</span>
+            </div>
+          </article>
+        </section>
+
+        <section class="lower-grid">
+          <div class="practice-panel" id="practice">
+            <div class="section-heading compact-heading"><div><span class="section-kicker">A QUICK ONE</span><h2>Think it through.</h2></div><span class="question-tag">01 / 01</span></div>
+            <p class="question-text">A body is thrown vertically upward. At its highest point, which statement is true?</p>
+            <div class="answer-list" role="group" aria-label="Choose an answer">
+              <button class="answer-option" data-answer="A"><span>A</span>Both velocity and acceleration are zero</button>
+              <button class="answer-option" data-answer="B"><span>B</span>Velocity is zero, acceleration is g downward</button>
+              <button class="answer-option" data-answer="C"><span>C</span>Velocity is g upward, acceleration is zero</button>
+            </div>
+            <p class="answer-feedback" id="answer-feedback" aria-live="polite"></p>
+          </div>
+
+          <div class="formula-panel" id="formulas">
+            <div class="section-heading compact-heading"><div><span class="section-kicker">KEEP IT CLOSE</span><h2>On the tip of your tongue.</h2></div><button class="formula-search" id="formula-search" type="button">Search</button></div>
+            <div class="formula-feature">
+              <span class="formula-subject">KINEMATICS · 1D MOTION</span>
+              <p class="formula-equation">v² = u² + 2as</p>
+              <p class="formula-caption">The one that leaves time out of the picture.</p>
+            </div>
+            <button class="formula-link" id="browse-formulas" type="button">Browse formula book <span aria-hidden="true">→</span></button>
+          </div>
+        </section>
+
+        <section class="resource-panel" aria-labelledby="resource-title">
+          <div class="section-heading compact-heading">
+            <div>
+              <span class="resource-kicker">RESOURCE LIBRARY</span>
+              <h2 id="resource-title">Study materials</h2>
+            </div>
+          </div>
+          <div class="resource-list" id="resource-library" aria-live="polite"></div>
+        </section>
+
+        <footer class="page-footer"><span>PHYSICS, ONE IDEA AT A TIME.</span><span>MADE FOR THE CURIOUS.</span></footer>
+      </main>
+    </div>
+
+    <div class="admin-overlay" id="admin-overlay" hidden>
+      <div class="admin-panel" aria-live="polite">
+        <div class="admin-header">
+          <div>
+            <span class="resource-kicker">ADMIN</span>
+            <h2>Manage your study space</h2>
+          </div>
+          <button class="admin-action" id="close-admin" type="button">Close</button>
+        </div>
+        <form class="admin-auth" id="admin-login-form">
+          <div class="form-field">
+            <label for="admin-password">Admin password</label>
+            <input id="admin-password" type="password" placeholder="Enter your password" />
+          </div>
+          <div class="admin-actions">
+            <span class="admin-status" id="admin-status">Use the default password for this demo site.</span>
+            <button class="save-resource" type="submit">Unlock admin</button>
+          </div>
+        </form>
+
+        <div id="admin-panel" hidden>
+          <form id="resource-form">
+            <div class="field-row">
+              <div class="form-field">
+                <label for="resource-title">Title</label>
+                <input id="resource-title" type="text" placeholder="JEE Mechanics revision notes" required />
+              </div>
+              <div class="form-field">
+                <label for="resource-type">Type</label>
+                <select id="resource-type">
+                  <option value="Notes">Notes</option>
+                  <option value="PDF">PDF</option>
+                  <option value="Video">Video</option>
+                  <option value="Link">Link</option>
+                  <option value="Practice">Practice</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="field-row" style="margin-top: 14px;">
+              <div class="form-field">
+                <label for="resource-category">Subject</label>
+                <input id="resource-category" type="text" placeholder="Mechanics" required />
+              </div>
+              <div class="form-field">
+                <label for="resource-link">Resource URL</label>
+                <input id="resource-link" type="url" placeholder="https://example.com/notes.pdf" />
+              </div>
+            </div>
+
+            <div class="form-field" style="margin-top: 14px;">
+              <label for="resource-description">Description</label>
+              <textarea id="resource-description" placeholder="Short description of the resource"></textarea>
+            </div>
+
+            <div class="form-field" style="margin-top: 14px;">
+              <label for="resource-file">Upload file</label>
+              <input id="resource-file" type="file" />
+            </div>
+
+            <div class="admin-actions" style="margin-top: 18px;">
+              <span class="admin-status" id="resource-status">Saved in the browser for this site session.</span>
+              <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                <button class="admin-action" type="button" id="admin-logout">Logout</button>
+                <button class="save-resource" type="submit">Save resource</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      (function () {
+        const defaultPassword = 'fieldnotes-admin';
+        const adminStateKey = 'fieldnotes-admin-auth';
+        const resourceStorageKey = 'fieldnotes-resources';
+
+        const initialResources = [
+          {
+            id: 'resource-1',
+            title: 'JEE Mechanics Crash Sheet',
+            type: 'PDF',
+            category: 'Mechanics',
+            link: 'https://example.com/jee-mechanics-crash-sheet',
+            description: 'A quick recap of formulas, assumptions and diagrams for mechanics revision.',
+            createdAt: new Date().toISOString()
+          },
+          {
+            id: 'resource-2',
+            title: 'Error Analysis in Kinematics',
+            type: 'Notes',
+            category: 'Kinematics',
+            link: 'https://example.com/kinematics-error-analysis',
+            description: 'Common mistakes and how to spot them before you lose marks in motion-based questions.',
+            createdAt: new Date().toISOString()
+          }
+        ];
+
+        const overlay = document.getElementById('admin-overlay');
+        const adminToggle = document.getElementById('admin-toggle');
+        const closeAdmin = document.getElementById('close-admin');
+        const loginForm = document.getElementById('admin-login-form');
+        const adminPanel = document.getElementById('admin-panel');
+        const adminStatus = document.getElementById('admin-status');
+        const resourceForm = document.getElementById('resource-form');
+        const resourceStatus = document.getElementById('resource-status');
+        const resourceLibrary = document.getElementById('resource-library');
+
+        function isAdminLoggedIn() {
+          return localStorage.getItem(adminStateKey) === 'true';
+        }
+
+        function openAdmin() {
+          overlay.hidden = false;
+          if (isAdminLoggedIn()) {
+            loginForm.hidden = true;
+            adminPanel.hidden = false;
+          } else {
+            loginForm.hidden = false;
+            adminPanel.hidden = true;
+          }
+        }
+
+        function closeAdminModal() {
+          overlay.hidden = true;
+        }
+
+        function getResources() {
+          try {
+            const saved = localStorage.getItem(resourceStorageKey);
+            return saved ? JSON.parse(saved) : initialResources;
+          } catch (error) {
+            return initialResources;
+          }
+        }
+
+        function saveResources(resources) {
+          localStorage.setItem(resourceStorageKey, JSON.stringify(resources));
+        }
+
+        function renderResources() {
+          const resources = getResources();
+          resourceLibrary.innerHTML = resources.map((resource) => {
+            const href = resource.link || '#';
+            return `
+              <article class="resource-item">
+                <div>
+                  <div class="resource-meta"><span>${resource.type}</span><span>•</span><span>${resource.category}</span></div>
+                  <h3>${resource.title}</h3>
+                  <p>${resource.description || 'Fresh study resource added to your library.'}</p>
+                </div>
+                <a href="${href}" target="_blank" rel="noreferrer">Open</a>
+              </article>
+            `;
+          }).join('') || '<p class="resource-empty">No resources yet. Add one from the admin panel.</p>';
+        }
+
+        adminToggle.addEventListener('click', openAdmin);
+        closeAdmin.addEventListener('click', closeAdminModal);
+
+        loginForm.addEventListener('submit', function (event) {
+          event.preventDefault();
+          const password = document.getElementById('admin-password').value.trim();
+          if (password === defaultPassword) {
+            localStorage.setItem(adminStateKey, 'true');
+            adminStatus.textContent = 'Admin access granted.';
+            loginForm.hidden = true;
+            adminPanel.hidden = false;
+          } else {
+            adminStatus.textContent = 'Incorrect password. Please try again.';
+            adminStatus.style.color = '#a34d48';
+          }
+        });
+
+        document.getElementById('admin-logout').addEventListener('click', function () {
+          localStorage.removeItem(adminStateKey);
+          document.getElementById('admin-password').value = '';
+          loginForm.hidden = false;
+          adminPanel.hidden = true;
+          adminStatus.textContent = 'Use the default password for this demo site.';
+          adminStatus.style.color = '';
+          closeAdminModal();
+        });
+
+        resourceForm.addEventListener('submit', function (event) {
+          event.preventDefault();
+
+          if (!isAdminLoggedIn()) {
+            resourceStatus.textContent = 'Please unlock admin first.';
+            resourceStatus.style.color = '#a34d48';
+            return;
+          }
+
+          const title = document.getElementById('resource-title').value.trim();
+          const type = document.getElementById('resource-type').value;
+          const category = document.getElementById('resource-category').value.trim();
+          const link = document.getElementById('resource-link').value.trim();
+          const description = document.getElementById('resource-description').value.trim();
+          const fileInput = document.getElementById('resource-file');
+          const file = fileInput.files && fileInput.files[0];
+
+          if (!title || !category) {
+            resourceStatus.textContent = 'Title and subject are required.';
+            resourceStatus.style.color = '#a34d48';
+            return;
+          }
+
+          const resource = {
+            id: 'resource-' + Date.now(),
+            title,
+            type,
+            category,
+            link,
+            description: description || 'New resource added to your study library.',
+            createdAt: new Date().toISOString(),
+            fileName: file ? file.name : null,
+            fileData: null
+          };
+
+          if (file && file.size <= 5000000) {
+            const reader = new FileReader();
+            reader.onload = function () {
+              resource.fileData = reader.result;
+              const resources = getResources();
+              resources.unshift(resource);
+              saveResources(resources);
+              renderResources();
+              resourceForm.reset();
+              resourceStatus.textContent = 'Resource uploaded and saved.';
+              resourceStatus.style.color = '#285b46';
+            };
+            reader.onerror = function () {
+              resourceStatus.textContent = 'There was a problem reading the file.';
+              resourceStatus.style.color = '#a34d48';
+            };
+            reader.readAsDataURL(file);
+            return;
+          }
+
+          const resources = getResources();
+          resources.unshift(resource);
+          saveResources(resources);
+          renderResources();
+          resourceForm.reset();
+          resourceStatus.textContent = 'Resource added successfully.';
+          resourceStatus.style.color = '#285b46';
+        });
+
+        const examButtons = document.querySelectorAll('.exam-option');
+        examButtons.forEach((button) => {
+          button.addEventListener('click', function () {
+            examButtons.forEach((btn) => {
+              const active = btn === button;
+              btn.classList.toggle('is-selected', active);
+              btn.setAttribute('aria-pressed', String(active));
+            });
+          });
+        });
+
+        document.querySelectorAll('.answer-option').forEach((button) => {
+          button.addEventListener('click', function () {
+            const answerButtons = document.querySelectorAll('.answer-option');
+            answerButtons.forEach((item) => item.classList.remove('correct', 'wrong'));
+            const selectedValue = button.dataset.answer;
+            const correctValue = 'B';
+            if (selectedValue === correctValue) {
+              button.classList.add('correct');
+              document.getElementById('answer-feedback').textContent = 'Correct — velocity is zero and acceleration remains g downward.';
+            } else {
+              button.classList.add('wrong');
+              document.getElementById('answer-feedback').textContent = 'Not quite — at the top, velocity is zero, but gravity still pulls downward.';
+            }
+          });
+        });
+
+        const todayDate = new Date();
+        document.getElementById('today-date').textContent = todayDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+
+        document.getElementById('browse-formulas').addEventListener('click', function () {
+          alert('Formula book is ready. You can extend it with more equations from the admin panel.');
+        });
+
+        renderResources();
+      })();
+    </script>
+  </body>
+</html>
