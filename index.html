@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#f6f7f2" />
     <meta name="description" content="A focused physics study space for JEE and NEET aspirants." />
-    <title>Fieldnotes — Physics prep, made clearer</title>
+    <title>Physics Lite - Aspirants Portal</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap" rel="stylesheet" />
@@ -419,7 +419,7 @@
       .chapter-image {
         position: relative;
         min-height: 280px;
-        background: linear-gradient(180deg, rgba(13,18,19,0.12), rgba(13,18,19,0.52)), radial-gradient(circle at top, rgba(221,225,214,0.8), rgba(76,91,78,0.3) 28%, rgba(16,22,18,0.9) 70%), url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 720"><circle cx="400" cy="280" r="180" fill="rgba(236,240,234,0.28)"/><circle cx="240" cy="500" r="220" fill="rgba(136,160,130,0.18)"/><path d="M0 520C180 420 260 530 420 470C560 420 630 340 720 390V720H0Z" fill="rgba(245,247,238,0.08)"/></svg>') center/cover no-repeat;
+        background: linear-gradient(180deg, rgba(13,18,19,0.12), rgba(13,18,19,0.52)), radial-gradient(circle at top, rgba(221,225,214,0.8), rgba(76,91,78,0.3) 28%, rgba(16,22,18,0.9) 70%), url('https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=1200&q=80');
         display: flex;
         align-items: end;
         justify-content: space-between;
@@ -691,7 +691,7 @@
         <section class="welcome-section" aria-labelledby="welcome-title">
           <div class="welcome-copy">
             <p class="eyebrow"><span class="eyebrow-dot"></span> YOUR PHYSICS STUDY SPACE</p>
-            <h1 id="welcome-title">Make sense<br />of <em>the universe.</em></h1>
+            <h1 id="welcome-title">Physics Lite<br /><em>Aspirants Portal</em></h1>
             <p class="welcome-description">A little more understanding today. A lot more confidence on exam day.</p>
           </div>
           <div class="welcome-side">
@@ -706,8 +706,8 @@
 
         <section class="daily-row" aria-label="Daily study progress">
           <div class="daily-intro"><span class="section-kicker">TODAY, AT A GLANCE</span><p>A focused session beats a perfect plan.</p></div>
-          <div class="daily-stat"><span class="stat-label">STUDY TIME</span><strong><span id="study-minutes">35</span><small> / 90 min</small></strong><div class="progress-track"><span id="time-progress" style="width: 39%"></span></div></div>
-          <div class="daily-stat"><span class="stat-label">QUESTIONS</span><strong><span id="question-count">8</span><small> / 20 done</small></strong><div class="progress-track"><span id="question-progress" style="width: 40%"></span></div></div>
+          <div class="daily-stat"><span class="stat-label">STUDY TIME</span><strong><span id="study-minutes">35</span><small> / 90 min</small></strong><div class="progress-track"><span id="time-progress" style="width: 39%;"></span></div></div>
+          <div class="daily-stat"><span class="stat-label">QUESTIONS</span><strong><span id="question-count">8</span><small> / 20 done</small></strong><div class="progress-track"><span id="question-progress" style="width: 40%;"></span></div></div>
           <button class="goal-button" id="start-session"><span>Continue your session</span><span aria-hidden="true">↗</span></button>
         </section>
 
@@ -742,7 +742,7 @@
           </div>
 
           <div class="formula-panel" id="formulas">
-            <div class="section-heading compact-heading"><div><span class="section-kicker">KEEP IT CLOSE</span><h2>On the tip of your tongue.</h2></div><button class="formula-search" id="formula-search" type="button">Search</button></div>
+            <div class="section-heading compact-heading"><div><span class="section-kicker">KEEP IT CLOSE</span><h2>On the tip of your tongue.</h2></div><button class="formula-search" id="formula-search" type="button" aria-label="Search formulas">Search</button></div>
             <div class="formula-feature">
               <span class="formula-subject">KINEMATICS · 1D MOTION</span>
               <p class="formula-equation">v² = u² + 2as</p>
@@ -998,10 +998,6 @@
               resourceStatus.textContent = 'Resource uploaded and saved.';
               resourceStatus.style.color = '#285b46';
             };
-            reader.onerror = function () {
-              resourceStatus.textContent = 'There was a problem reading the file.';
-              resourceStatus.style.color = '#a34d48';
-            };
             reader.readAsDataURL(file);
             return;
           }
@@ -1011,42 +1007,8 @@
           saveResources(resources);
           renderResources();
           resourceForm.reset();
-          resourceStatus.textContent = 'Resource added successfully.';
+          resourceStatus.textContent = 'Resource saved.';
           resourceStatus.style.color = '#285b46';
-        });
-
-        const examButtons = document.querySelectorAll('.exam-option');
-        examButtons.forEach((button) => {
-          button.addEventListener('click', function () {
-            examButtons.forEach((btn) => {
-              const active = btn === button;
-              btn.classList.toggle('is-selected', active);
-              btn.setAttribute('aria-pressed', String(active));
-            });
-          });
-        });
-
-        document.querySelectorAll('.answer-option').forEach((button) => {
-          button.addEventListener('click', function () {
-            const answerButtons = document.querySelectorAll('.answer-option');
-            answerButtons.forEach((item) => item.classList.remove('correct', 'wrong'));
-            const selectedValue = button.dataset.answer;
-            const correctValue = 'B';
-            if (selectedValue === correctValue) {
-              button.classList.add('correct');
-              document.getElementById('answer-feedback').textContent = 'Correct — velocity is zero and acceleration remains g downward.';
-            } else {
-              button.classList.add('wrong');
-              document.getElementById('answer-feedback').textContent = 'Not quite — at the top, velocity is zero, but gravity still pulls downward.';
-            }
-          });
-        });
-
-        const todayDate = new Date();
-        document.getElementById('today-date').textContent = todayDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-
-        document.getElementById('browse-formulas').addEventListener('click', function () {
-          alert('Formula book is ready. You can extend it with more equations from the admin panel.');
         });
 
         renderResources();
